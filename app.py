@@ -1,6 +1,8 @@
 import os
 
 from flask import Flask
+from flask import render_template, request
+from werkzeug.utils import redirect
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -22,8 +24,20 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    @app.route("/hello")
-    def hello():
-        return "Hello World!"
-    
+    @app.route('/')
+    def home():
+        return render_template("index.html", title="Home")
+
+    @app.route('/about')
+    def about():
+        return render_template("about.html", title="About")
+
+    @app.route('/predict')
+    def predict():
+        return render_template("predict.html", title="Predict data")
+
+    @app.route('/tech')
+    def tech():
+        return render_template("tech.html", title="Tech Stack")
+
     return app
